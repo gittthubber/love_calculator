@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block content%}
+    <div class="container">
+        <div class="box first-page">
+            <h1>LOVE CALCULATOR</h1>
+            <p>Thank you! Now, let's see if you're meant to stay forever</p>
+            <div> 
+                {% if perfect %}
+                    <h3 class="pt-3">{{ first_name }} and {{ second_name }} ...</h3>
+                    <h3>Your score is ...</h3>
+                    </br>
+                    <h1>{{ perfect}} %</h1>
+                {% elif worst %}
+                    <h3 class="pt-3">{{ first_name }} and {{ second_name }} ...</h3>
+                    <h3>Your score is ...</h3>
+                    </br>
+                    <h1>{{ worst }} %</h1>
+                {% else %}
+                    <p>No score available, please compile the form with both the names</p>
+                {% endif %}
+                <a class="btn bt-mod mt-3" href="{{ url_for('index') }}">Go to Home</a>
+                <form action='/score' method="POST">
+                    <input type="hidden" name="first_name" value="{{ first_name }}">
+                    <input type="hidden" name="second_name" value="{{ second_name }}">
+                    {% if perfect %}
+                        <input type="hidden" name="score" value="{{ perfect }}">
+                    {% elif worst %}
+                        <input type="hidden" name="score" value="{{ worst }}">
+                    {% endif %}
+                    <button type="submit" class="btn bt-mod mt-3">Ripeti</button>
+                </form>
+            </div>     
+        </div>
+    </div>
+{% endblock %}
